@@ -44,3 +44,9 @@ body {
     color: var(--color-gray-100);
     margin: 0;
 }
+
+main {
+    width: 90%;
+    max-width: 50rem;
+    margin: 0 auto;
+}
