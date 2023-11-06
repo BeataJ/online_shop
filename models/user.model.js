@@ -1,4 +1,4 @@
-const bcrypt = request('bcryptjs')
+const bcrypt = require('bcryptjs')
 
 const db = require('../data/database');
 
