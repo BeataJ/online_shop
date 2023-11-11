@@ -1,5 +1,5 @@
 function createUserSession(req, user, action) {
-    req.session.udi = user._id.toString();
+    req.session.uid = user._id.toString();
     req.session.save(action);
 }
 
