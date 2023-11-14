@@ -1,8 +1,9 @@
 const User = require("../models/user.model");
-const authUtil = require('../util/authentication');
+const authUtil = require("../util/authentication");
+const userDetailsAreValid = require("../util/validation");
 
 function getSignup(req, res) {
-  res.render('customer/auth/signup');
+  res.render("customer/auth/signup");
 }
 
 async function signup(req, res, next) {
@@ -15,52 +16,66 @@ async function signup(req, res, next) {
     req.body.city
   );
 
-  try{
-    await user.signup();
+  if (
+    !userDetailsAreValid(
+      req.body.email,
+      req.body.password,
+      req.body.fullname,
+      req.body.street,
+      req.body.postal,
+      req.body.city
+    )
+  ) {
+    res.redirect("/signup");
+    return;
+  }
 
+  try {
+    await user.signup();
   } catch (error) {
     next(error);
     return;
   }
-  
-  res.redirect('/login')
+
+  res.redirect("/login");
 }
 
 function getLogin(req, res) {
-  res.render('customer/auth/login')
+  res.render("customer/auth/login");
 }
 
-async function login(req,res, next) {
+async function login(req, res, next) {
   const user = new User(req.body.email, req.body.password);
   let existingUser;
-  try{
+  try {
     existingUser = await user.getUserWithSameEmail();
   } catch (error) {
     next(error);
     return;
   }
 
-  if(!existingUser) {
-    res.redirect('/login');
+  if (!existingUser) {
+    res.redirect("/login");
     return;
   }
 
-  const passwordIsCorrect = await user.hasMatchingPassword(existingUser.password);
+  const passwordIsCorrect = await user.hasMatchingPassword(
+    existingUser.password
+  );
 
-  if(!passwordIsCorrect) {
-    res.redirect('/login');
+  if (!passwordIsCorrect) {
+    res.redirect("/login");
     return;
   }
 
   authUtil.createUserSession(req, existingUser, () => {
-    res.redirect('/');
-  })
-
+    res.redirect("/");
+  });
 }
 
 function logout(req, res) {
   authUtil.destroyUserAuthSession(req);
-  res.redirect('login');
+  res.redirect("login");
 }
 
 module.exports = {
@@ -68,5 +83,5 @@ module.exports = {
   getLogin: getLogin,
   signup: signup,
   login: login,
-  logout:logout
+  logout: logout,
 };
