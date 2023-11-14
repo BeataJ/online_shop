@@ -7,15 +7,6 @@ function getSignup(req, res) {
 }
 
 async function signup(req, res, next) {
-  const user = new User(
-    req.body.email,
-    req.body.password,
-    req.body.fullname,
-    req.body.street,
-    req.body.postal,
-    req.body.city
-  );
-
   if (
     !validation.userDetailsAreValid(
       req.body.email,
@@ -34,7 +25,24 @@ async function signup(req, res, next) {
     return;
   }
 
+  const user = new User(
+    req.body.email,
+    req.body.password,
+    req.body.fullname,
+    req.body.street,
+    req.body.postal,
+    req.body.city
+  );
+
+  
   try {
+    const existsAlready = await user.existsAlready();
+  
+    if(existsAlready) {
+      res.redirect('/signup');
+      return;
+    }
+    
     await user.signup();
   } catch (error) {
     next(error);
