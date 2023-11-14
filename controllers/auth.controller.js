@@ -5,7 +5,7 @@ function getSignup(req, res) {
   res.render('customer/auth/signup');
 }
 
-async function signup(req, res) {
+async function signup(req, res, next) {
   const user = new User(
     req.body.email,
     req.body.password,
@@ -15,8 +15,14 @@ async function signup(req, res) {
     req.body.city
   );
 
-  await user.signup();
+  try{
+    await user.signup();
 
+  } catch (error) {
+    next(error);
+    return;
+  }
+  
   res.redirect('/login')
 }
 
