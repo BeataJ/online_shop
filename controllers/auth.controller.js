@@ -30,9 +30,15 @@ function getLogin(req, res) {
   res.render('customer/auth/login')
 }
 
-async function login(req,res) {
+async function login(req,res, next) {
   const user = new User(req.body.email, req.body.password);
-  const existingUser = await user.getUserWithSameEmail();
+  let existingUser;
+  try{
+    existingUser = await user.getUserWithSameEmail();
+  } catch (error) {
+    next(error);
+    return;
+  }
 
   if(!existingUser) {
     res.redirect('/login');
