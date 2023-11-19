@@ -6,7 +6,7 @@ function userCredentialsAreValid(email, password) {
     email &&
     email.includes("@") &&
     password &&
-    password.trim().length >= 6 
+    password.trim().length >= 5 
 }
 
 function userDetailsAreValid(email, password, name, street, postal, city) {
