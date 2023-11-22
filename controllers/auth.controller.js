@@ -49,7 +49,7 @@ async function signup(req, res, next) {
     )
   ) {
     sessionFlash.flashDataToSession(req, {
-      errorMessage: 'Please check your input. Password must be at least 6 character long. ',
+      errorMessage: 'Please check your input. Password must be at least 5 character long. ',
       ...enteredData
     }, () => {
 
