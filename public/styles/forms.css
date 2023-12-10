@@ -9,7 +9,7 @@ label {
     margin-bottom: var(--space-2);
 }
 
-input, testarea {
+input, textarea{
     font: inherit;
     padding: var(--space-2);
     border-radius: var(--border-redius-small);
