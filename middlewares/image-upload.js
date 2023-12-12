@@ -1,8 +1,8 @@
 const multer = require('multer');
-const uuid = require('uuid');
+const uuid = require('uuid').v4;
 
 const upload = multer({
-    storege: multer.diskStorage({
+    storage: multer.diskStorage({
         destination: function(req, file, cb){
             cb(null, 'product-data/images')
         },
