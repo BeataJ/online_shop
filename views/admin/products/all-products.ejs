@@ -3,7 +3,7 @@
     </head>
 
     <body>
-        <%- include('../../shared//includes/header') %>
+        <%- include('../../shared/includes/header') %>
             <main>
                 <h1>Product Administration</h1>
                 <section>
@@ -11,7 +11,13 @@
                     <p><a href="/admin/products/new" class="btn">Add Product</a></p>
                 </section>
                 <section>
-                    <p>A List of products...</p>
+                    <ul>
+                        <% for (const product of products) { %>
+                        <li>
+                           <%- include('includes/product-item', {product: product}) %> 
+                        </li>
+                        <% } %>
+                    </ul>
                 </section>
             </main>
 
