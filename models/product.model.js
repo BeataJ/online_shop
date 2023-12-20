@@ -8,7 +8,7 @@ const db = require('../data/database');
         this.description = productData.description;
         this.image = productData.image;
         this.imagePath = `product-data/images/${productData.image}`;
-        this.imageUrl = `/product/assets/images/${productData.image}`;
+        this.imageUrl = `/products/assets/images/${productData.image}`;
         if(productData._id) {
         this.id = productData._id.toString();
         }
