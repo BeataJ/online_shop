@@ -69,7 +69,7 @@ async function deleteProduct(req, res, next) {
     next(error);
   }
 
-  res.redirect('/admin/products');
+  res.json({message: 'Deleted product!'})
 
 }
 
