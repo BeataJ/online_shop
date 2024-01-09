@@ -40,10 +40,11 @@ app.use(checkAuthStatusMiddleware);
 app.use(baseRoutes);
 app.use(authRouter);
 app.use(productsRoutes);
+app.use('/cart', cartRoutes);
 
 app.use(protectRoutesMiddleware);
 app.use('/admin', adminRoutes );
-app.use('/cart', cartRoutes);
+
 app.use(errorHandlerMiddleware);
 
 db.connectToDatabase().then(() => {
