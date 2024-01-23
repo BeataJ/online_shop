@@ -12,7 +12,7 @@ async function getProducts(req, res, next) {
 }
 
 function getNewProduct(req, res) {
-  res.render('admin/products/new-product');
+  res.render('admin/products/new-products');
 }
 
 async function createNewProduct(req, res, next) {
